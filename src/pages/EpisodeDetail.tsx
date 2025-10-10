@@ -36,7 +36,10 @@ function EpisodeDetail() {
         setEpisode(episodeData);
       } catch (err) {
         const error = err as Error;
-        setError(error?.message || 'Failed to load episode');
+        const errorMessage = error?.message?.toLowerCase().includes('nothing here') 
+          ? 'Episode not found' 
+          : error?.message || 'Episode not found';
+        setError(errorMessage);
       } finally {
         setLoading(false);
       }

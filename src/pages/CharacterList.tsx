@@ -49,7 +49,10 @@ function CharacterList() {
         setInfo(data.info);
       } catch (err) {
         const error = err as Error;
-        setError(error?.message || 'An error occurred');
+        const errorMessage = error?.message?.toLowerCase().includes('nothing here') 
+          ? 'No characters found matching your filters' 
+          : error?.message || 'Failed to load characters';
+        setError(errorMessage);
       } finally {
         setLoading(false);
       }

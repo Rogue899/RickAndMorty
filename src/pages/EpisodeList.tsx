@@ -43,7 +43,10 @@ function EpisodeList() {
         setInfo(data.info);
       } catch (err) {
         const error = err as Error;
-        setError(error?.message || 'Failed to load episodes');
+        const errorMessage = error?.message?.toLowerCase().includes('nothing here') 
+          ? 'No episodes found matching your filters' 
+          : error?.message || 'Failed to load episodes';
+        setError(errorMessage);
       } finally {
         setLoading(false);
       }

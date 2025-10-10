@@ -35,7 +35,10 @@ function LocationDetail() {
         setLocation(locationData);
       } catch (err) {
         const error = err as Error;
-        setError(error?.message || 'Failed to load location');
+        const errorMessage = error?.message?.toLowerCase().includes('nothing here') 
+          ? 'Location not found' 
+          : error?.message || 'Location not found';
+        setError(errorMessage);
       } finally {
         setLoading(false);
       }
@@ -62,7 +65,10 @@ function LocationDetail() {
         setResidents(residentsData);
       } catch (err) {
         const error = err as Error;
-        setError(error?.message || 'Failed to load residents');
+        const errorMessage = error?.message?.toLowerCase().includes('nothing here') 
+          ? 'Failed to load residents' 
+          : error?.message || 'Failed to load residents';
+        setError(errorMessage);
       } finally {
         setLoadingResidents(false);
       }

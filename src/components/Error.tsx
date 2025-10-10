@@ -7,6 +7,7 @@ interface ErrorProps {
 }
 
 function Error({ message }: ErrorProps) {
+  console.log(message);
   return (
     <div className="not-found">
       <div className="not-found-content">
@@ -19,7 +20,7 @@ function Error({ message }: ErrorProps) {
             decoding="async"
           />
         </div>
-        <h1 className="not-found-title">404</h1>
+        <h1 className="not-found-subtitle not-found-title">{message}</h1>
         <h2 className="not-found-subtitle">Aw Jeez, Wrong Dimension!</h2>
         <p className="not-found-message">
           <strong>Morty:</strong> "Uh, Rick? I-I-I don't think this page exists..."<br/>

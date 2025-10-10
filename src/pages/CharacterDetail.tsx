@@ -30,7 +30,10 @@ function CharacterDetail() {
         setCharacter(data);
       } catch (err) {
         const error = err as Error;
-        setError(error?.message || 'An error occurred');
+        const errorMessage = error?.message?.toLowerCase().includes('nothing here') 
+          ? 'Character not found' 
+          : error?.message || 'Character not found';
+        setError(errorMessage);
       } finally {
         setLoading(false);
       }

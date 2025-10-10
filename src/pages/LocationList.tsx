@@ -45,7 +45,10 @@ function LocationList() {
         setInfo(data.info);
       } catch (err) {
         const error = err as Error;
-        setError(error?.message || 'An error occurred');
+        const errorMessage = error?.message?.toLowerCase().includes('nothing here') 
+          ? 'No locations found matching your filters' 
+          : error?.message || 'Failed to load locations';
+        setError(errorMessage);
       } finally {
         setLoading(false);
       }
