@@ -13,6 +13,8 @@ function Error({ message }: ErrorProps) {
           src={portalGif}
           alt="Rick and Morty Portal"
           className="error-portal-gif"
+          loading="lazy"
+          decoding="async"
         />
       </div>
       <h2 className="error-title">Aw Jeez! Something Broke!</h2>

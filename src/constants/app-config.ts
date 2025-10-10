@@ -8,10 +8,7 @@ export const API_CONFIG = {
 } as const;
 
 export const VIDEO_CONFIG = {
-  VIDSRC_BASE_URL: 'https://vidsrc.xyz/embed/tv',
-  RICK_AND_MORTY_IMDB_ID: 'tt2861424',
-  AUTOPLAY: true,
-  AUTONEXT: true,
+  VIDSRC_BASE_URL: 'https://vidsrc.xyz/embed/tv/tt2861424',
 } as const;
 
 export const PAGINATION_CONFIG = {

@@ -11,6 +11,8 @@ function NotFound() {
             src={portalGif}
             alt="Rick and Morty Portal"
             className="portal-gif"
+            loading="lazy"
+            decoding="async"
           />
         </div>
         <h1 className="not-found-title">404</h1>

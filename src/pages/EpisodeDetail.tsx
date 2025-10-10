@@ -89,9 +89,7 @@ function EpisodeDetail() {
 
   const getVideoUrl = () => {
     if (!seasonInfo) return null;
-    const autoplay = VIDEO_CONFIG.AUTOPLAY ? '1' : '0';
-    const autonext = VIDEO_CONFIG.AUTONEXT ? '1' : '0';
-    return `${VIDEO_CONFIG.VIDSRC_BASE_URL}/${VIDEO_CONFIG.RICK_AND_MORTY_IMDB_ID}/${seasonInfo.season}-${seasonInfo.episodeNum}?autoplay=${autoplay}&autonext=${autonext}`;
+    return `${VIDEO_CONFIG.VIDSRC_BASE_URL}/${seasonInfo.season}-${seasonInfo.episodeNum}`;
   };
 
   const handleWatchEpisode = () => {
