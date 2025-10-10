@@ -1,0 +1,204 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.location-card {
+  position: relative;
+  border-radius: $radius-xl;
+  cursor: pointer;
+  overflow: hidden;
+  min-height: 200px;
+  transition: all $transition-base;
+  
+  // Animated gradient border effect
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      $accent-cyan,
+      $accent-purple,
+      $accent-cyan
+    );
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+    opacity: 0.3;
+    z-index: 0;
+    transition: opacity $transition-base;
+  }
+  
+  &:hover {
+    transform: translateY(-8px) scale(1.02);
+    
+    &::before {
+      opacity: 0.6;
+    }
+    
+    .location-card-background {
+      opacity: 0.15;
+    }
+    
+    .location-icon {
+      transform: scale(1.2) rotate(5deg);
+    }
+    
+    .location-name {
+      background-size: 100% 100%;
+    }
+  }
+  
+  &:focus {
+    @include focus-ring;
+    outline-offset: 4px;
+  }
+  
+  &:active {
+    transform: translateY(-4px) scale(1.01);
+  }
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.location-card-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba($bg-dark-primary, 0.95) 0%,
+    rgba($bg-dark-secondary, 0.95) 100%
+  );
+  backdrop-filter: blur(20px);
+  opacity: 0.98;
+  z-index: 1;
+  transition: opacity $transition-base;
+}
+
+.location-card-content {
+  position: relative;
+  z-index: 2;
+  padding: $spacing-2xl;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+  height: 100%;
+  
+  @include mobile {
+    padding: $spacing-xl;
+  }
+}
+
+.location-icon {
+  font-size: 48px;
+  line-height: 1;
+  transition: transform $transition-base;
+  filter: drop-shadow(0 0 20px rgba($accent-cyan, 0.5));
+  
+  @include mobile {
+    font-size: 40px;
+  }
+}
+
+.location-info {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  flex: 1;
+}
+
+.location-type {
+  font-size: $font-xs;
+  font-weight: $font-semibold;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wide;
+  color: $accent-cyan;
+  opacity: 0.8;
+}
+
+.location-name {
+  font-size: $font-xl;
+  font-weight: $font-bold;
+  line-height: $line-height-tight;
+  margin: 0;
+  background: linear-gradient(135deg, $text-primary 0%, rgba($accent-cyan, 0.9) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 200%;
+  transition: background-size $transition-base;
+  
+  @include mobile {
+    font-size: $font-lg;
+  }
+}
+
+.location-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-md;
+  padding-top: $spacing-md;
+  border-top: 1px solid rgba($accent-cyan, 0.2);
+}
+
+.location-stat {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  padding: $spacing-sm;
+  border-radius: $radius-md;
+  background: rgba($accent-cyan, 0.05);
+  transition: background $transition-fast;
+  
+  &:hover {
+    background: rgba($accent-cyan, 0.1);
+  }
+}
+
+.stat-icon {
+  font-size: 24px;
+  line-height: 1;
+  filter: drop-shadow(0 0 10px rgba($accent-purple, 0.3));
+  
+  @include mobile {
+    font-size: 20px;
+  }
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.stat-label {
+  font-size: $font-xs;
+  font-weight: $font-medium;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wide;
+  color: $text-secondary;
+  opacity: 0.7;
+}
+
+.stat-value {
+  font-size: $font-sm;
+  font-weight: $font-semibold;
+  color: $text-primary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+

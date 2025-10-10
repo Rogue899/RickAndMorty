@@ -1,0 +1,75 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.episode-card {
+  @include glass-card;
+  border-radius: $radius-lg;
+  padding: $spacing-xl;
+  cursor: pointer;
+  @include transition-all;
+  @include hover-lift;
+  
+  &:hover {
+    @include glass-card-hover;
+  }
+  
+  &:focus {
+    @include focus-ring;
+  }
+}
+
+.episode-card-header {
+  @include flex-between;
+  margin-bottom: $spacing-base;
+  gap: $spacing-sm;
+}
+
+.episode-code {
+  background: $primary-gradient;
+  padding: $spacing-xs $spacing-base;
+  border-radius: $radius-md;
+  font-size: $font-sm;
+  font-weight: $font-bold;
+  letter-spacing: $letter-spacing-wide;
+}
+
+.episode-characters-count {
+  font-size: $font-xs;
+  color: $text-secondary;
+  padding: $spacing-xs $spacing-sm;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: $radius-sm;
+}
+
+.episode-name {
+  font-size: $font-lg;
+  font-weight: $font-semibold;
+  color: $text-primary;
+  margin-bottom: $spacing-base;
+  @include line-clamp(2);
+  min-height: 3rem; // Ensure consistent height
+  
+  @include mobile-xs {
+    font-size: $font-base;
+  }
+}
+
+.episode-meta {
+  @include flex-between;
+  gap: $spacing-sm;
+  flex-wrap: wrap;
+}
+
+.episode-air-date {
+  font-size: $font-sm;
+  color: $text-secondary;
+}
+
+.episode-season {
+  font-size: $font-xs;
+  color: $accent-cyan;
+  font-weight: $font-medium;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wide;
+}
+

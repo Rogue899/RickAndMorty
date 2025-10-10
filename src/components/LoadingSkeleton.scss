@@ -1,0 +1,156 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+// Shimmer animation
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+// Grid of skeleton cards
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: $spacing-2xl;
+  
+  @include mobile {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: $spacing-xl;
+  }
+  
+  @include mobile-xs {
+    grid-template-columns: 1fr;
+    gap: $spacing-base;
+  }
+}
+
+// Skeleton card
+.skeleton-card {
+  @include glass-card;
+  border-radius: $radius-lg;
+  overflow: hidden;
+}
+
+.skeleton-image {
+  width: 100%;
+  height: 280px;
+  
+  @include mobile-xs {
+    height: 250px;
+  }
+}
+
+.skeleton-content {
+  padding: $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.skeleton-title {
+  height: 24px;
+  border-radius: $radius-sm;
+  width: 70%;
+}
+
+.skeleton-text {
+  height: 16px;
+  border-radius: $radius-sm;
+  width: 100%;
+}
+
+.skeleton-text-short {
+  height: 16px;
+  border-radius: $radius-sm;
+  width: 50%;
+}
+
+// Skeleton detail page
+.skeleton-detail {
+  @include glass-card;
+  border-radius: $radius-lg;
+  padding: $spacing-2xl;
+  
+  @include mobile {
+    padding: $spacing-lg;
+  }
+}
+
+.skeleton-detail-header {
+  display: flex;
+  gap: $spacing-2xl;
+  margin-bottom: $spacing-2xl;
+  
+  @include mobile {
+    flex-direction: column;
+    gap: $spacing-lg;
+  }
+}
+
+.skeleton-detail-image {
+  width: 300px;
+  height: 300px;
+  border-radius: $radius-lg;
+  flex-shrink: 0;
+  
+  @include mobile {
+    width: 100%;
+    height: 250px;
+  }
+}
+
+.skeleton-detail-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+.skeleton-title-large {
+  height: 40px;
+  border-radius: $radius-md;
+  width: 60%;
+  
+  @include mobile {
+    width: 80%;
+  }
+}
+
+.skeleton-detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+// Skeleton list
+.skeleton-list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.skeleton-list-item {
+  @include glass-card;
+  padding: $spacing-lg;
+  border-radius: $radius-md;
+  
+  .skeleton-text {
+    width: 80%;
+  }
+}
+

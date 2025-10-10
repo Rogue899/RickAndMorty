@@ -1,0 +1,197 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.episode-detail {
+  max-width: 1400px;
+  margin: 0 auto;
+
+  .back-button {
+    margin-bottom: $spacing-2xl;
+  }
+}
+
+.episode-detail-card {
+  @include glass-card;
+  border-radius: $radius-xl;
+  padding: $spacing-3xl;
+
+  @include mobile {
+    padding: $spacing-2xl;
+  }
+
+  @include mobile-xs {
+    padding: $spacing-xl;
+  }
+}
+
+.episode-header {
+  text-align: center;
+  margin-bottom: $spacing-3xl;
+  padding-bottom: $spacing-2xl;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.episode-code-large {
+  display: inline-block;
+  background: $primary-gradient;
+  padding: $spacing-base $spacing-2xl;
+  border-radius: $radius-lg;
+  font-size: $font-xl;
+  font-weight: $font-black;
+  letter-spacing: $letter-spacing-wider;
+  margin-bottom: $spacing-xl;
+  box-shadow: 0 4px 16px $shadow-glow-green;
+
+  @include mobile-xs {
+    font-size: $font-lg;
+    padding: $spacing-sm $spacing-xl;
+  }
+}
+
+.episode-title {
+  font-size: 2.5rem;
+  @include gradient-text;
+  margin-bottom: $spacing-lg;
+
+  @include mobile {
+    font-size: $font-2xl;
+  }
+
+  @include mobile-xs {
+    font-size: $font-xl;
+  }
+}
+
+.watch-episode-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-md;
+  background: linear-gradient(135deg, $accent-green, $accent-cyan);
+  color: $text-primary;
+  border: none;
+  padding: $spacing-md $spacing-2xl;
+  border-radius: $radius-lg;
+  font-size: $font-base;
+  font-weight: $font-bold;
+  cursor: pointer;
+  @include transition-all;
+  box-shadow: 0 4px 16px $shadow-glow-green;
+  margin-bottom: $spacing-xl;
+
+  svg {
+    transition: transform $transition-fast;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px $shadow-glow-green;
+
+    svg {
+      transform: scale(1.2);
+    }
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+
+  @include mobile {
+    padding: $spacing-sm $spacing-xl;
+    font-size: $font-sm;
+  }
+}
+
+.episode-info {
+  @include flex-center;
+  gap: $spacing-2xl;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  @include mobile {
+    gap: $spacing-xl;
+  }
+}
+
+.episode-air-date {
+  @include flex-center;
+  gap: $spacing-sm;
+  font-size: $font-base;
+  color: $text-secondary;
+
+  svg {
+    color: $accent-cyan;
+  }
+}
+
+.episode-season-info {
+  background: rgba(0, 212, 255, 0.1);
+  color: $accent-cyan;
+  padding: $spacing-xs $spacing-base;
+  border-radius: $radius-md;
+  font-size: $font-sm;
+  font-weight: $font-semibold;
+  text-transform: uppercase;
+  letter-spacing: $letter-spacing-wide;
+}
+
+.characters-section {
+  .characters-header {
+    @include flex-between;
+    margin-bottom: $spacing-2xl;
+    flex-wrap: wrap;
+    gap: $spacing-base;
+
+    h2 {
+      font-size: $font-xl;
+      color: $text-primary;
+
+      @include mobile-xs {
+        font-size: $font-lg;
+      }
+    }
+
+    .characters-count {
+      background: $primary-gradient;
+      padding: $spacing-xs $spacing-base;
+      border-radius: $radius-md;
+      font-size: $font-sm;
+      font-weight: $font-semibold;
+    }
+  }
+
+  .loading-characters {
+    padding: $spacing-3xl 0;
+  }
+
+  .no-characters {
+    text-align: center;
+    color: $text-secondary;
+    font-size: $font-lg;
+    padding: $spacing-3xl 0;
+  }
+
+  .characters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: $spacing-2xl;
+
+    @include mobile {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: $spacing-xl;
+    }
+
+    @include mobile-xs {
+      grid-template-columns: 1fr;
+      gap: $spacing-base;
+    }
+  }
+
+  .more-characters {
+    text-align: center;
+    margin-top: $spacing-2xl;
+    color: $text-secondary;
+    font-size: $font-base;
+    font-style: italic;
+  }
+}
+

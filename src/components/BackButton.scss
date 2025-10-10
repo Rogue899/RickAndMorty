@@ -1,0 +1,50 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.back-button {
+  @include flex-start;
+  gap: $spacing-sm;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: $text-primary;
+  padding: $spacing-md $spacing-xl;
+  border-radius: $radius-lg;
+  font-size: $font-base;
+  font-weight: $font-medium;
+  cursor: pointer;
+  @include transition-all;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    background: rgba($accent-green, 0.15);
+    border-color: $accent-green;
+    color: $accent-green;
+    transform: translateX(-4px);
+    box-shadow: 0 4px 16px $shadow-glow-green;
+
+    .back-button-icon {
+      transform: translateX(-2px);
+    }
+  }
+
+  &:active {
+    transform: translateX(-2px);
+  }
+
+  @include mobile {
+    padding: $spacing-sm $spacing-lg;
+    font-size: $font-sm;
+  }
+
+  @include mobile-xs {
+    padding: $spacing-sm $spacing-base;
+    font-size: $font-sm;
+  }
+}
+
+.back-button-icon {
+  @include transition-fast;
+  flex-shrink: 0;
+}
+

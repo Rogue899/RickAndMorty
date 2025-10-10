@@ -1,0 +1,118 @@
+@import './styles/variables';
+@import './styles/mixins';
+
+.app {
+  min-height: 100vh;
+  @include flex-column;
+  position: relative;
+  isolation: isolate; // Create stacking context
+}
+
+.app-header {
+  position: relative;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.3);
+  padding: $spacing-xl $spacing-2xl;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  
+  @include mobile {
+    padding: $spacing-base $spacing-xl;
+  }
+}
+
+.app-header-content {
+  max-width: $max-width-container;
+  margin: 0 auto;
+  @include flex-between;
+  gap: $spacing-xl;
+  flex-wrap: wrap;
+  
+  @include mobile {
+    @include flex-column;
+    align-items: center;
+    gap: $spacing-base;
+  }
+  
+}
+
+.app-logo {
+  text-decoration: none;
+  
+  h1 {
+    font-size: $font-2xl;
+    font-weight: $font-bold;
+    @include gradient-text;
+    margin: 0;
+    
+    @include mobile {
+      font-size: $font-xl;
+    }
+  }
+}
+
+.app-nav {
+  @include flex-center;
+  gap: $spacing-base;
+}
+
+.nav-link {
+  padding: $spacing-sm $spacing-lg;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: $radius-md;
+  color: $text-primary;
+  font-size: $font-base;
+  font-weight: $font-medium;
+  text-decoration: none;
+  @include transition-all;
+  backdrop-filter: blur(5px);
+  position: relative;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: $accent-green;
+    color: $accent-green;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px $shadow-glow-green;
+  }
+  
+  &.active {
+    background: rgba($accent-green, 0.15);
+    border-color: $accent-green;
+    color: $accent-green;
+    box-shadow: 0 0 20px rgba($accent-green, 0.3);
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 2px;
+      background: $accent-green;
+      border-radius: 2px;
+    }
+  }
+  
+  @include mobile {
+    padding: $spacing-xs $spacing-base;
+    font-size: $font-sm;
+  }
+}
+
+.app-main {
+  flex: 1;
+  padding: $spacing-2xl;
+  max-width: $max-width-container;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+  
+  @include mobile {
+    padding: $spacing-base;
+  }
+}
+

@@ -1,310 +1,188 @@
-# Rick and Morty Explorer
+# Rick & Morty Explorer
 
-A modern, responsive web application built with React and TypeScript that allows users to explore characters from the Rick and Morty universe using the [Rick and Morty API](https://rickandmortyapi.com/).
+A full-featured web application for exploring the Rick and Morty universe, built as a technical assessment. The application demonstrates modern React development practices, TypeScript usage, and advanced UI/UX patterns.
 
-## Features
+## Live Demo
 
-- 📱 **Responsive Design**: Fully responsive interface that works seamlessly on desktop, tablet, and mobile devices
-- 🎨 **Modern UI**: Beautiful gradient-based design with smooth animations and transitions
-- 🔍 **Character List**: Browse through all Rick and Morty characters with pagination
-- 📄 **Character Details**: View detailed information about each character including:
-  - Name, Status, Species, Gender
-  - Origin and Last Known Location
-  - Number of episode appearances
-  - High-quality character image
-- ⚡ **Fast Navigation**: Quick page transitions with React Router
-- 🧪 **Comprehensive Testing**: High test coverage with unit tests for all components
+[Add deployment URL here]
+
+## Project Overview
+
+This single-page application provides a comprehensive interface for browsing characters, locations, and episodes from the Rick and Morty series. It features advanced filtering, pagination, smart caching, and context-aware navigation.
 
 ## Tech Stack
 
-- **React 18** - UI library
-- **TypeScript** - Type safety and better developer experience
-- **Vite** - Fast build tool and development server
-- **React Router 6** - Client-side routing
-- **Vitest** - Fast unit testing framework
-- **React Testing Library** - Component testing utilities
-- **CSS Modules** - Scoped styling
+- **React 18.2** with functional components and hooks
+- **TypeScript 5.3** for type safety
+- **Vite 5.0** for fast development and optimized builds
+- **React Router DOM 6.20** for client-side routing
+- **SCSS (Sass 1.93)** for advanced styling
+- **Rick and Morty API** for data fetching
 
-## Prerequisites
+## Key Features
 
-Before running this project, ensure you have the following installed:
+### Core Functionality
+- Browse 826 characters, 126 locations, and 51 episodes
+- Advanced multi-criteria filtering
+- Pagination with URL persistence
+- Detailed view pages for all entities
+- Watch episodes via VidSrc integration (opens in new tab)
 
-- **Node.js** (version 16 or higher)
-- **npm** (version 7 or higher) or **yarn** (version 1.22 or higher)
+### Technical Implementation
+- **Smart Caching System**: In-memory cache with configurable TTL to reduce API calls
+- **URL State Management**: Filter and pagination state persisted in URL for shareability
+- **Context-Aware Navigation**: Back button remembers navigation context
+- **Loading Skeletons**: Smooth loading states for better UX
+- **Error Boundaries**: Graceful error handling with custom 404 page
+- **First Load Animation**: Portal-themed loader on initial visit
+- **Responsive Design**: Mobile-first approach with adaptive layouts
 
-To check your versions, run:
+### Architecture
+- Centralized API service layer with caching
+- Reusable icon components (SVG)
+- Modular SCSS architecture with variables and mixins
+- Type-safe interfaces for all data models
+- Service-based navigation helpers
+
+## Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm (v9 or higher)
+
+### Installation
+
 ```bash
-node --version
-npm --version
+# optional: Clone the repository
+git clone <repository-url>
+cd rick-and-morty-explorer
+
+# Install dependencies
+### cd into RickAndMorty and
+npm install
 ```
 
-## Installation
-
-1. **Extract the project** (if you received it as a .zip file):
-   ```bash
-   unzip rick-and-morty-explorer.zip
-   cd rick-and-morty-explorer
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-   
-   Or if you prefer yarn:
-   ```bash
-   yarn install
-   ```
-
-## Running the Application
-
-### Development Mode
-
-To start the development server:
+### Running the Application
 
 ```bash
+# Start development server
 npm run dev
 ```
 
-Or with yarn:
-```bash
-yarn dev
-```
+The application will be available at `http://localhost:5173`
 
-The application will be available at `http://localhost:5173` (Vite's default port).
-
-The development server includes:
-- Hot Module Replacement (HMR) for instant updates
-- Fast refresh for React components
-- TypeScript type checking
-
-### Production Build
-
-To create a production-optimized build:
+### Building for Production
 
 ```bash
-npm run build
-```
-
-Or with yarn:
-```bash
-yarn build
-```
-
-The build output will be in the `dist` directory.
-
-### Preview Production Build
-
-To preview the production build locally:
-
-```bash
+# Preview production build locally
 npm run preview
+# or
+npm run dev
 ```
 
-Or with yarn:
-```bash
-yarn preview
-```
-
-## Running Tests
-
-### Run all tests:
-
-```bash
-npm test
-```
-
-Or with yarn:
-```bash
-yarn test
-```
-
-### Run tests with coverage:
-
-```bash
-npm run test:coverage
-```
-
-Or with yarn:
-```bash
-yarn test:coverage
-```
-
-Coverage reports will be generated in the `coverage` directory.
-
-### Test Coverage
-
-The project includes comprehensive tests for:
-- API service functions
-- All React components (CharacterCard, Pagination, Loading, Error)
-- Page components (CharacterList, CharacterDetail)
-- User interactions and navigation
-- Error handling and edge cases
-
-Current test coverage targets:
-- Statements: >80%
-- Branches: >75%
-- Functions: >80%
-- Lines: >80%
+Build output will be in the `dist/` directory.
 
 ## Project Structure
 
 ```
-rick-and-morty-explorer/
-├── src/
-│   ├── components/          # Reusable React components
-│   │   ├── CharacterCard.tsx
-│   │   ├── CharacterCard.css
-│   │   ├── CharacterCard.test.tsx
-│   │   ├── Pagination.tsx
-│   │   ├── Pagination.css
-│   │   ├── Pagination.test.tsx
-│   │   ├── Loading.tsx
-│   │   ├── Loading.css
-│   │   ├── Loading.test.tsx
-│   │   ├── Error.tsx
-│   │   └── Error.css
-│   │   └── Error.test.tsx
-│   ├── pages/               # Page components
-│   │   ├── CharacterList.tsx
-│   │   ├── CharacterList.css
-│   │   ├── CharacterList.test.tsx
-│   │   ├── CharacterDetail.tsx
-│   │   ├── CharacterDetail.css
-│   │   └── CharacterDetail.test.tsx
-│   ├── services/            # API services
-│   │   ├── api.ts
-│   │   └── api.test.ts
-│   ├── types/               # TypeScript type definitions
-│   │   └── character.ts
-│   ├── test/                # Test configuration
-│   │   └── setup.ts
-│   ├── App.tsx              # Root component
-│   ├── App.css
-│   ├── App.test.tsx
-│   ├── main.tsx             # Application entry point
-│   ├── index.css            # Global styles
-│   └── vite-env.d.ts        # Vite type definitions
-├── public/                  # Static assets
-├── index.html               # HTML entry point
-├── package.json             # Dependencies and scripts
-├── tsconfig.json            # TypeScript configuration
-├── vite.config.ts           # Vite configuration
-└── README.md                # This file
+src/
+├── components/          # Reusable UI components
+│   ├── icons/          # SVG icon components
+│   ├── AppLoader.tsx   # First load animation
+│   ├── BackButton.tsx  # Context-aware navigation
+│   ├── ErrorBoundary.tsx
+│   ├── LoadingSkeleton.tsx
+│   └── [filters, cards, pagination]
+├── pages/              # Route-level components
+│   ├── CharacterList.tsx / CharacterDetail.tsx
+│   ├── LocationList.tsx / LocationDetail.tsx
+│   ├── EpisodeList.tsx / EpisodeDetail.tsx
+│   └── NotFound.tsx
+├── services/           # Business logic layer
+│   ├── api.ts         # API service with caching
+│   ├── cache.ts       # Cache implementation
+│   └── navigation.ts  # Navigation helpers
+├── constants/          # Configuration and constants
+│   ├── app-config.ts  # Centralized config
+│   ├── character-data.ts
+│   └── episode-data.ts
+├── styles/            # Global SCSS architecture
+│   ├── _variables.scss
+│   ├── _typography.scss
+│   ├── _mixins.scss
+│   ├── _background-portals.scss
+│   └── theme.scss
+└── types/             # TypeScript definitions
+    └── character.ts
 ```
 
-## API
+## API Integration
 
-This project uses the [Rick and Morty API](https://rickandmortyapi.com/), a free and open API that provides:
-- Character information
-- Episode details
-- Location data
+**Data Source**: [Rick and Morty API](https://rickandmortyapi.com/documentation)
 
-No API key is required.
+**Endpoints Used**:
+- `/character` - Character list and details
+- `/location` - Location list and details
+- `/episode` - Episode list and details
 
-## Browser Support
+**Caching Strategy**:
+- List endpoints: 5 minutes
+- Single entities: 15 minutes
+- Static data: 1 hour
+- Max cache size: 100 entries
 
-The application supports all modern browsers:
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
+## Features Breakdown
 
-## Key Features Breakdown
+### Character Management
+- List view with card layout
+- Filter by: name, status, species, type, gender
+- Pagination (20 per page)
+- Click to view detailed information
+- Navigate to character's origin/location
+- View episode appearances
 
-### Character List Page
-- Displays 20 characters per page
-- Shows character name, image, status, and species
-- Pagination controls for navigating through all characters
-- Smooth scroll to top when changing pages
-- Responsive grid layout that adapts to screen size
-- Loading state while fetching data
-- Error handling with user-friendly messages
+### Location Management
+- List view with animated cards
+- Filter by: name, type, dimension
+- Pagination (20 per page)
+- View residents (paginated)
+- Dynamic emoji icons based on location type
+- Animated gradient borders
 
-### Character Detail Page
-- Full character information display
-- Visual status indicators (Alive/Dead/Unknown)
-- Back button to return to character list
-- Responsive layout for all screen sizes
-- Episode count display
+### Episode Management
+- List view with season/episode codes
+- Filter by: name, episode code
+- Pagination (20 per page)
+- View character appearances (paginated)
+- Watch episode button (opens VidSrc in new tab)
+- Display air dates
 
-### Responsive Design
-- **Desktop (>968px)**: Multi-column grid with large cards
-- **Tablet (768px-968px)**: Adjusted grid with medium cards
-- **Mobile (<768px)**: Single column layout with optimized spacing
+## Configuration
 
-## Performance Optimizations
+All configuration is centralized in `src/constants/app-config.ts`:
 
-- Lazy loading of character images
-- Efficient pagination to minimize API calls
-- React component optimization
-- CSS animations using GPU-accelerated properties
-- Production build with code splitting and minification
+```typescript
+API_CONFIG          // API base URL and endpoints
+CACHE_CONFIG        // TTL and cache size settings
+VIDEO_CONFIG        // VidSrc integration settings
+PAGINATION_CONFIG   // Items per page settings
+FILTER_OPTIONS      // Dropdown options
+ERROR_MESSAGES      // User-facing messages
+UI_TEXT            // Button labels and text
+```
 
 ## Development
 
-### Code Style
+**Available Scripts**:
+- `npm run dev` - Start development server
+- `npm run build` - Create production build
+- `npm run preview` - Preview production build
 
-The project uses TypeScript strict mode for better type safety. Key conventions:
+**Key Development Patterns**:
 - Functional components with hooks
-- TypeScript interfaces for all data types
-- CSS modules for component styling
-- Descriptive variable and function names
+- TypeScript for type safety
+- SCSS modules for styling
+- Service layer for business logic
+- URL-based state management (since the project is small enough for us not to use global data management systems)
 
-### Adding New Features
-
-1. Create new components in `src/components/`
-2. Add corresponding test files with `.test.tsx` extension
-3. Update types in `src/types/` if needed
-4. Add new routes in `App.tsx` if creating new pages
-5. Run tests to ensure coverage remains high
-
-## Troubleshooting
-
-### Port Already in Use
-
-If port 5173 is already in use, Vite will automatically try the next available port. You can also specify a custom port:
-
-```bash
-npm run dev -- --port 3000
-```
-
-### Module Not Found Errors
-
-If you encounter module errors, try:
-1. Delete `node_modules` folder
-2. Delete `package-lock.json` (or `yarn.lock`)
-3. Run `npm install` again
-
-### TypeScript Errors
-
-If you see TypeScript errors:
-1. Ensure you're using Node.js 16 or higher
-2. Try running `npm run build` to see detailed type errors
-3. Check `tsconfig.json` for configuration issues
-
-## Future Enhancements
-
-Potential features for future iterations:
-- Search functionality to find characters by name
-- Filter characters by status, species, or gender
-- Favorites/bookmarking system
-- Episode information pages
-- Location information pages
-- Dark/light theme toggle
-- Character comparison feature
-
-## License
-
-This project is created for educational/demonstration purposes.
-
-## Author
-
-Created as a technical assessment project.
-
-## Acknowledgments
-
-- [Rick and Morty API](https://rickandmortyapi.com/) for providing the free API
-- The Rick and Morty show creators for the amazing content
-- The React and TypeScript communities for excellent tools and documentation
-
+**Built with React, TypeScript, and modern web development best practices.**

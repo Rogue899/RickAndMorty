@@ -1,0 +1,156 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.character-filter-bar {
+  @include glass-card;
+  padding: $spacing-xl;
+  margin-bottom: $spacing-2xl;
+
+  @include mobile {
+    padding: $spacing-lg;
+  }
+}
+
+.filter-form {
+  @include flex-column;
+  gap: $spacing-lg;
+
+  // Tablet: 2 columns (768px - 968px)
+  @include tablet {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: $spacing-lg;
+  }
+
+  // Small Desktop: Still 2 columns (968px - 1100px)
+  @media (min-width: $breakpoint-lg) and (max-width: 1100px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: $spacing-lg;
+  }
+
+  // Medium Desktop: 3 columns (1100px - 1320px)
+  @media (min-width: 1101px) and (max-width: $breakpoint-xl) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: $spacing-lg;
+  }
+
+  // Large Desktop: 3 columns with more space (1320px+)
+  @media (min-width: calc($breakpoint-xl + 1px)) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: $spacing-xl;
+  }
+}
+
+.filter-group {
+  @include flex-column;
+  gap: $spacing-sm;
+  min-width: 0; // Allow to shrink in grid
+
+  label {
+    font-size: $font-sm;
+    color: $text-secondary;
+    font-weight: $font-medium;
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-wide;
+  }
+}
+
+.filter-input,
+.filter-select {
+  padding: $spacing-md $spacing-lg;
+  font-size: $font-base;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: $radius-md;
+  color: $text-primary;
+  font-family: $font-primary;
+  min-width: 0; // Allow inputs to shrink in grid
+  width: 100%;
+  @include transition-fast;
+
+  &:focus {
+    outline: none;
+    border-color: $accent-green;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 3px rgba($accent-green, 0.2);
+  }
+  
+  &:hover:not(:focus) {
+    border-color: rgba($accent-green, 0.5);
+  }
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+  }
+}
+
+.filter-select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23FFFFFF' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right $spacing-md center;
+  padding-right: $spacing-2xl;
+  appearance: none;
+
+  option {
+    background: $bg-dark-primary;
+    color: $text-primary;
+  }
+}
+
+.filter-actions {
+  display: flex;
+  gap: $spacing-md;
+  align-items: flex-end;
+  flex-wrap: wrap;
+
+  // Span all columns in grid layouts
+  @media (min-width: $breakpoint-md) {
+    grid-column: 1 / -1;
+  }
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: $spacing-md $spacing-xl;
+  border-radius: $radius-md;
+  font-size: $font-base;
+  font-weight: $font-medium;
+  cursor: pointer;
+  @include transition-fast;
+  border: none;
+  white-space: nowrap;
+
+  @include mobile {
+    flex: 1;
+  }
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, $accent-green, $accent-cyan);
+  color: $text-primary;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px $shadow-glow-green;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: $text-secondary;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: $text-primary;
+  }
+}
+

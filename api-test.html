@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rick and Morty API Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1e3e 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        h1 {
+            background: linear-gradient(90deg, #00d4ff 0%, #7700ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        #results {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        button {
+            background: linear-gradient(135deg, #00d4ff 0%, #7700ff 100%);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px 10px 10px 0;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .success { color: #55cc44; }
+        .error { color: #ff6b6b; }
+        .info { color: #00d4ff; }
+        .section { margin: 20px 0; padding: 15px; border-left: 3px solid #00d4ff; }
+    </style>
+</head>
+<body>
+    <h1>🚀 Rick and Morty API Explorer</h1>
+    <p>Click the button below to test all API endpoints and see actual responses</p>
+    
+    <button id="testBtn" onclick="runAllTests()">▶️ Run All Tests</button>
+    <button onclick="clearResults()">🗑️ Clear Results</button>
+    
+    <div id="results"></div>
+
+    <script>
+        const BASE_URL = 'https://rickandmortyapi.com/api';
+        const results = document.getElementById('results');
+        const testBtn = document.getElementById('testBtn');
+
+        function log(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = type;
+            div.innerHTML = message;
+            results.appendChild(div);
+            results.scrollTop = results.scrollHeight;
+        }
+
+        function logSection(title) {
+            const div = document.createElement('div');
+            div.className = 'section';
+            div.innerHTML = `<strong>${title}</strong>`;
+            results.appendChild(div);
+        }
+
+        function clearResults() {
+            results.innerHTML = '';
+        }
+
+        async function testCharacters() {
+            logSection('📍 TESTING CHARACTER ENDPOINTS');
+
+            try {
+                // Get all characters
+                log('1️⃣ Testing: GET /api/character (page 1)');
+                const res1 = await fetch(`${BASE_URL}/character?page=1`);
+                const data1 = await res1.json();
+                log(`✅ Success! Total: ${data1.info.count} characters, ${data1.info.pages} pages`, 'success');
+                log(`   Per page: ${data1.results.length} characters`);
+                log(`   First: ${data1.results[0].name} (${data1.results[0].species})`);
+
+                // Get single character
+                log('<br>2️⃣ Testing: GET /api/character/1 (Rick Sanchez)');
+                const res2 = await fetch(`${BASE_URL}/character/1`);
+                const rick = await res2.json();
+                log(`✅ Success! ${rick.name}`, 'success');
+                log(`   Status: ${rick.status}, Species: ${rick.species}`);
+                log(`   Origin: ${rick.origin.name}`);
+                log(`   Location: ${rick.location.name}`);
+                log(`   Episodes: ${rick.episode.length} appearances`);
+
+                // Get multiple
+                log('<br>3️⃣ Testing: GET /api/character/1,2,3');
+                const res3 = await fetch(`${BASE_URL}/character/1,2,3`);
+                const multiple = await res3.json();
+                log(`✅ Success! Fetched ${multiple.length} characters`, 'success');
+                log(`   Names: ${multiple.map(c => c.name).join(', ')}`);
+
+                // Filter by name
+                log('<br>4️⃣ Testing: Filter by name = "rick"');
+                const res4 = await fetch(`${BASE_URL}/character?name=rick`);
+                const ricks = await res4.json();
+                log(`✅ Success! Found ${ricks.info.count} Ricks`, 'success');
+
+                // Filter by status
+                log('<br>5️⃣ Testing: Filter by status = "alive"');
+                const res5 = await fetch(`${BASE_URL}/character?status=alive`);
+                const alive = await res5.json();
+                log(`✅ Success! ${alive.info.count} alive characters`, 'success');
+
+                // Filter by species
+                log('<br>6️⃣ Testing: Filter by species = "human"');
+                const res6 = await fetch(`${BASE_URL}/character?species=human`);
+                const humans = await res6.json();
+                log(`✅ Success! ${humans.info.count} humans`, 'success');
+
+                // Combined filters
+                log('<br>7️⃣ Testing: Combined filters (alive + human + female)');
+                const res7 = await fetch(`${BASE_URL}/character?status=alive&species=human&gender=female`);
+                const combined = await res7.json();
+                log(`✅ Success! ${combined.info.count} alive human females`, 'success');
+
+            } catch (error) {
+                log(`❌ Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testLocations() {
+            logSection('🌍 TESTING LOCATION ENDPOINTS');
+
+            try {
+                // Get all locations
+                log('1️⃣ Testing: GET /api/location (page 1)');
+                const res1 = await fetch(`${BASE_URL}/location?page=1`);
+                const data1 = await res1.json();
+                log(`✅ Success! Total: ${data1.info.count} locations, ${data1.info.pages} pages`, 'success');
+                log(`   First: ${data1.results[0].name} (${data1.results[0].type})`);
+
+                // Get single location
+                log('<br>2️⃣ Testing: GET /api/location/1 (Earth C-137)');
+                const res2 = await fetch(`${BASE_URL}/location/1`);
+                const earth = await res2.json();
+                log(`✅ Success! ${earth.name}`, 'success');
+                log(`   Type: ${earth.type}, Dimension: ${earth.dimension}`);
+                log(`   Residents: ${earth.residents.length} characters`);
+
+                // Get multiple locations
+                log('<br>3️⃣ Testing: GET /api/location/1,2,3');
+                const res3 = await fetch(`${BASE_URL}/location/1,2,3`);
+                const locs = await res3.json();
+                log(`✅ Success! Fetched ${locs.length} locations`, 'success');
+                log(`   Names: ${locs.map(l => l.name).join(', ')}`);
+
+                // Filter by type
+                log('<br>4️⃣ Testing: Filter by type = "planet"');
+                const res4 = await fetch(`${BASE_URL}/location?type=planet`);
+                const planets = await res4.json();
+                log(`✅ Success! ${planets.info.count} planets`, 'success');
+
+            } catch (error) {
+                log(`❌ Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testEpisodes() {
+            logSection('📺 TESTING EPISODE ENDPOINTS');
+
+            try {
+                // Get all episodes
+                log('1️⃣ Testing: GET /api/episode (page 1)');
+                const res1 = await fetch(`${BASE_URL}/episode?page=1`);
+                const data1 = await res1.json();
+                log(`✅ Success! Total: ${data1.info.count} episodes, ${data1.info.pages} pages`, 'success');
+                log(`   First: ${data1.results[0].name} (${data1.results[0].episode})`);
+
+                // Get single episode
+                log('<br>2️⃣ Testing: GET /api/episode/1 (Pilot)');
+                const res2 = await fetch(`${BASE_URL}/episode/1`);
+                const pilot = await res2.json();
+                log(`✅ Success! ${pilot.name}`, 'success');
+                log(`   Code: ${pilot.episode}, Air Date: ${pilot.air_date}`);
+                log(`   Characters: ${pilot.characters.length} appearances`);
+
+                // Get multiple episodes
+                log('<br>3️⃣ Testing: GET /api/episode/1,2,3');
+                const res3 = await fetch(`${BASE_URL}/episode/1,2,3`);
+                const eps = await res3.json();
+                log(`✅ Success! Fetched ${eps.length} episodes`, 'success');
+                log(`   Codes: ${eps.map(e => e.episode).join(', ')}`);
+
+                // Filter by episode code
+                log('<br>4️⃣ Testing: Filter by episode = "S01E01"');
+                const res4 = await fetch(`${BASE_URL}/episode?episode=S01E01`);
+                const s01e01 = await res4.json();
+                log(`✅ Success! Found ${s01e01.results.length} episode(s)`, 'success');
+
+            } catch (error) {
+                log(`❌ Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testRelationships() {
+            logSection('🔗 TESTING RELATIONSHIP NAVIGATION');
+
+            try {
+                // Character -> Origin
+                log('1️⃣ Testing: Character → Origin Location');
+                const res1 = await fetch(`${BASE_URL}/character/1`);
+                const char = await res1.json();
+                const originId = char.origin.url.match(/\/(\d+)$/)?.[1];
+                if (originId) {
+                    const res2 = await fetch(`${BASE_URL}/location/${originId}`);
+                    const origin = await res2.json();
+                    log(`✅ Success! ${char.name} is from ${origin.name}`, 'success');
+                }
+
+                // Episode -> Characters
+                log('<br>2️⃣ Testing: Episode → Characters');
+                const res3 = await fetch(`${BASE_URL}/episode/1`);
+                const ep = await res3.json();
+                log(`✅ Success! ${ep.name} features ${ep.characters.length} characters`, 'success');
+
+                // Location -> Residents
+                log('<br>3️⃣ Testing: Location → Residents');
+                const res4 = await fetch(`${BASE_URL}/location/1`);
+                const loc = await res4.json();
+                log(`✅ Success! ${loc.name} has ${loc.residents.length} residents`, 'success');
+
+            } catch (error) {
+                log(`❌ Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testEdgeCases() {
+            logSection('⚠️ TESTING EDGE CASES');
+
+            try {
+                // Invalid ID
+                log('1️⃣ Testing: Invalid ID (9999)');
+                const res1 = await fetch(`${BASE_URL}/character/9999`);
+                if (!res1.ok) {
+                    log(`✅ Correctly returns error for invalid ID`, 'success');
+                }
+
+                // No results
+                log('<br>2️⃣ Testing: Search with no results');
+                const res2 = await fetch(`${BASE_URL}/character?name=xyznotfound123`);
+                if (!res2.ok) {
+                    log(`✅ Correctly handles no results`, 'success');
+                }
+
+                // Last page
+                log('<br>3️⃣ Testing: Last page of characters');
+                const res3 = await fetch(`${BASE_URL}/character?page=42`);
+                const lastPage = await res3.json();
+                log(`✅ Success! Last page has ${lastPage.results.length} characters`, 'success');
+                log(`   Next: ${lastPage.info.next || 'null'}`);
+
+            } catch (error) {
+                log(`❌ Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function runAllTests() {
+            clearResults();
+            testBtn.disabled = true;
+            testBtn.textContent = '⏳ Running tests...';
+
+            log('═══════════════════════════════════════', 'info');
+            log('   RICK AND MORTY API EXPLORATION', 'info');
+            log('═══════════════════════════════════════<br>', 'info');
+
+            await testCharacters();
+            await testLocations();
+            await testEpisodes();
+            await testRelationships();
+            await testEdgeCases();
+
+            log('<br>═══════════════════════════════════════', 'success');
+            log('   ✅ ALL TESTS COMPLETE!', 'success');
+            log('═══════════════════════════════════════', 'success');
+
+            testBtn.disabled = false;
+            testBtn.textContent = '▶️ Run All Tests';
+        }
+    </script>
+</body>
+</html>
+

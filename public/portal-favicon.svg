@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Outer portal glow -->
+  <circle cx="50" cy="50" r="48" fill="none" stroke="#97ce4c" stroke-width="2" opacity="0.3"/>
+  <circle cx="50" cy="50" r="42" fill="none" stroke="#97ce4c" stroke-width="1.5" opacity="0.5"/>
+  
+  <!-- Main portal ring -->
+  <circle cx="50" cy="50" r="35" fill="none" stroke="#97ce4c" stroke-width="4"/>
+  
+  <!-- Inner portal swirl -->
+  <path d="M 50 15 Q 35 30, 35 50 Q 35 70, 50 85 Q 65 70, 65 50 Q 65 30, 50 15" 
+        fill="none" stroke="#00b5cc" stroke-width="3" opacity="0.7"/>
+  
+  <!-- Portal center -->
+  <circle cx="50" cy="50" r="25" fill="#97ce4c" opacity="0.2"/>
+  <circle cx="50" cy="50" r="18" fill="#00b5cc" opacity="0.3"/>
+  <circle cx="50" cy="50" r="12" fill="#97ce4c" opacity="0.5"/>
+  
+  <!-- Portal sparkles -->
+  <circle cx="30" cy="30" r="2" fill="#97ce4c"/>
+  <circle cx="70" cy="30" r="2" fill="#00b5cc"/>
+  <circle cx="30" cy="70" r="2" fill="#00b5cc"/>
+  <circle cx="70" cy="70" r="2" fill="#97ce4c"/>
+  
+  <!-- Center glow -->
+  <circle cx="50" cy="50" r="8" fill="#97ce4c" opacity="0.8"/>
+  <circle cx="50" cy="50" r="4" fill="#ffffff"/>
+</svg>
+

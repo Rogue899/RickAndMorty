@@ -1,0 +1,28 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.error-container {
+  @include flex-column-center;
+  min-height: 400px;
+  gap: $spacing-base;
+  text-align: center;
+  padding: $spacing-2xl;
+}
+
+.error-icon {
+  font-size: $font-4xl;
+  margin-bottom: $spacing-base;
+}
+
+.error-title {
+  font-size: $font-xl;
+  color: $text-primary;
+  margin-bottom: $spacing-sm;
+}
+
+.error-message {
+  font-size: $font-md;
+  color: $text-secondary;
+  max-width: 500px;
+}
+

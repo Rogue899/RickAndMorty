@@ -1,51 +1,47 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { api } from '../services/api';
-import { Character, Info } from '../types/character';
-import CharacterCard from '../components/CharacterCard';
-import CharacterFilterBar from '../components/CharacterFilterBar';
+import { Location, LocationResponse } from '../types';
+import LocationCard from '../components/LocationCard';
+import LocationFilterBar from '../components/LocationFilterBar';
 import Pagination from '../components/Pagination';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
-import './CharacterList.scss';
+import './LocationList.scss';
 
-function CharacterList() {
+function LocationList() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [characters, setCharacters] = useState<Character[]>([]);
-  const [info, setInfo] = useState<Info | null>(null);
+  const [locations, setLocations] = useState<Location[]>([]);
+  const [info, setInfo] = useState<LocationResponse['info'] | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   
   // Get filters from URL
   const currentPage = parseInt(searchParams.get('page') || '1', 10);
   const nameFilter = searchParams.get('name') || '';
-  const statusFilter = searchParams.get('status') || '';
-  const speciesFilter = searchParams.get('species') || '';
-  const genderFilter = searchParams.get('gender') || '';
   const typeFilter = searchParams.get('type') || '';
+  const dimensionFilter = searchParams.get('dimension') || '';
 
   useEffect(() => {
-    const fetchCharacters = async () => {
+    const fetchLocations = async () => {
       try {
         setLoading(true);
         setError(null);
-        const data = await api.getCharacters({ 
+        const data = await api.getLocations({ 
           page: currentPage,
           name: nameFilter || undefined,
-          status: statusFilter as any || undefined,
-          species: speciesFilter || undefined,
-          gender: genderFilter as any || undefined,
           type: typeFilter || undefined,
+          dimension: dimensionFilter || undefined,
         });
         
         if (!data || !data.results || data.results.length === 0) {
-          setError('No characters found matching your filters');
-          setCharacters([]);
+          setError('No locations found matching your filters');
+          setLocations([]);
           setInfo(null);
           return;
         }
         
-        setCharacters(data.results);
+        setLocations(data.results);
         setInfo(data.info);
       } catch (err) {
         const error = err as Error;
@@ -55,33 +51,27 @@ function CharacterList() {
       }
     };
 
-    fetchCharacters();
-  }, [currentPage, nameFilter, statusFilter, speciesFilter, genderFilter, typeFilter]);
+    fetchLocations();
+  }, [currentPage, nameFilter, typeFilter, dimensionFilter]);
 
   const handlePageChange = (page: number) => {
     const newParams: Record<string, string> = { page: page.toString() };
     if (nameFilter) newParams.name = nameFilter;
-    if (statusFilter) newParams.status = statusFilter;
-    if (speciesFilter) newParams.species = speciesFilter;
-    if (genderFilter) newParams.gender = genderFilter;
     if (typeFilter) newParams.type = typeFilter;
+    if (dimensionFilter) newParams.dimension = dimensionFilter;
     setSearchParams(newParams);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleFilterChange = (filters: {
     name?: string;
-    status?: string;
-    species?: string;
-    gender?: string;
     type?: string;
+    dimension?: string;
   }) => {
     const newParams: Record<string, string> = { page: '1' };
     if (filters.name) newParams.name = filters.name;
-    if (filters.status) newParams.status = filters.status;
-    if (filters.species) newParams.species = filters.species;
-    if (filters.gender) newParams.gender = filters.gender;
     if (filters.type) newParams.type = filters.type;
+    if (filters.dimension) newParams.dimension = filters.dimension;
     setSearchParams(newParams);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -90,32 +80,30 @@ function CharacterList() {
   if (error) return <Error message={error} />;
 
   return (
-    <div className="character-list">
-      <div className="character-list-header">
-        <h1>Characters</h1>
-        <p className="character-count">
-          {info?.count || 0} characters{info?.pages ? ` across ${info.pages} pages` : ''}
+    <div className="location-list">
+      <div className="location-list-header">
+        <h1>Locations</h1>
+        <p className="location-count">
+          {info?.count || 0} locations{info?.pages ? ` across ${info.pages} pages` : ''}
         </p>
       </div>
 
-      <CharacterFilterBar
+      <LocationFilterBar
         onFilterChange={handleFilterChange}
         initialFilters={{
           name: nameFilter,
-          status: statusFilter,
-          species: speciesFilter,
-          gender: genderFilter,
           type: typeFilter,
+          dimension: dimensionFilter,
         }}
       />
 
-      {!characters.length ? (
-        <Error message="No characters found matching your filters. Try adjusting your search." />
+      {!locations.length ? (
+        <Error message="No locations found matching your filters. Try adjusting your search." />
       ) : (
         <>
-          <div className="character-grid">
-            {characters.map((character) => (
-              <CharacterCard key={character.id} character={character} />
+          <div className="location-grid">
+            {locations.map((location) => (
+              <LocationCard key={location.id} location={location} />
             ))}
           </div>
           {info && (
@@ -131,5 +119,5 @@ function CharacterList() {
   );
 }
 
-export default CharacterList;
+export default LocationList;
 

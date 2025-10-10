@@ -1,6 +1,7 @@
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { navigateWithReturn } from '../services/navigation';
 import { Character } from '../types/character';
-import './CharacterCard.css';
+import './CharacterCard.scss';
 
 interface CharacterCardProps {
   character: Character;
@@ -8,11 +9,15 @@ interface CharacterCardProps {
 
 function CharacterCard({ character }: CharacterCardProps) {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const location = useLocation();
 
   const handleClick = () => {
-    const currentPage = searchParams.get('page') || '1';
-    navigate(`/character/${character.id}?from=list&page=${currentPage}`);
+    navigateWithReturn(
+      navigate,
+      `/character/${character.id}`,
+      location.pathname,
+      location.search
+    );
   };
 
   const getStatusClass = (status: string) => {

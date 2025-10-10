@@ -1,0 +1,133 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.not-found {
+  min-height: 70vh;
+  @include flex-center;
+  padding: $spacing-3xl;
+  
+  @include mobile {
+    padding: $spacing-xl;
+  }
+}
+
+.not-found-content {
+  @include glass-card;
+  padding: $spacing-4xl;
+  border-radius: $radius-xl;
+  text-align: center;
+  max-width: 700px;
+  width: 100%;
+  
+  @include mobile {
+    padding: $spacing-2xl;
+  }
+}
+
+.not-found-icon {
+  font-size: 80px;
+  margin-bottom: $spacing-xl;
+  animation: float 3s ease-in-out infinite;
+  
+  @include mobile {
+    font-size: 60px;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.not-found-title {
+  font-size: 120px;
+  font-weight: $font-black;
+  @include gradient-text;
+  line-height: 1;
+  margin-bottom: $spacing-md;
+  
+  @include mobile {
+    font-size: 80px;
+  }
+}
+
+.not-found-subtitle {
+  font-size: $font-3xl;
+  font-weight: $font-bold;
+  color: $text-primary;
+  margin-bottom: $spacing-lg;
+  
+  @include mobile {
+    font-size: $font-2xl;
+  }
+}
+
+.not-found-message {
+  font-size: $font-lg;
+  color: $text-secondary;
+  line-height: $line-height-relaxed;
+  margin-bottom: $spacing-3xl;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  
+  @include mobile {
+    font-size: $font-base;
+    margin-bottom: $spacing-2xl;
+  }
+}
+
+.not-found-actions {
+  @include flex-center;
+  gap: $spacing-md;
+  flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: $spacing-md $spacing-xl;
+  border-radius: $radius-md;
+  font-size: $font-base;
+  font-weight: $font-medium;
+  cursor: pointer;
+  @include transition-fast;
+  text-decoration: none;
+  display: inline-block;
+  border: none;
+  
+  @include mobile {
+    padding: $spacing-sm $spacing-lg;
+    font-size: $font-sm;
+  }
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, $accent-green, $accent-cyan);
+  color: $text-primary;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px $shadow-glow-green;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: $text-secondary;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: $text-primary;
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+}
+

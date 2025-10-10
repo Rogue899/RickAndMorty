@@ -1,0 +1,167 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.app-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, $bg-dark-primary 0%, $bg-dark-secondary 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeOut 0.5s ease-out 2s forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.loader-content {
+  text-align: center;
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.portal-loader {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 2rem;
+}
+
+.portal-ring-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: $accent-green;
+  border-right-color: $accent-cyan;
+
+  &:nth-child(1) {
+    width: 100px;
+    height: 100px;
+    animation: portalSpin 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+  }
+
+  &:nth-child(2) {
+    width: 70px;
+    height: 70px;
+    border-top-color: $accent-cyan;
+    border-right-color: $primary-blue;
+    animation: portalSpin 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite reverse;
+    animation-delay: -0.5s;
+  }
+
+  &:nth-child(3) {
+    width: 40px;
+    height: 40px;
+    border-top-color: $primary-green;
+    border-right-color: $accent-green;
+    animation: portalSpin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+    animation-delay: -0.25s;
+  }
+}
+
+@keyframes portalSpin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(180deg) scale(1.1);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg) scale(1);
+  }
+}
+
+.loader-title {
+  font-size: $font-2xl;
+  font-weight: $font-bold;
+  background: linear-gradient(135deg, $accent-green, $accent-cyan);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: $spacing-xl;
+  animation: pulse 2s ease-in-out infinite;
+
+  @include mobile {
+    font-size: $font-xl;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.loader-bar {
+  width: 280px;
+  height: 6px;
+  background: rgba($text-primary, 0.1);
+  border-radius: 50rem;
+  overflow: hidden;
+  margin: 0 auto $spacing-base;
+  position: relative;
+
+  @include mobile {
+    width: 220px;
+  }
+}
+
+.loader-progress {
+  height: 100%;
+  background: linear-gradient(90deg, $accent-green, $accent-cyan, $primary-blue);
+  background-size: 200% 100%;
+  border-radius: 50rem;
+  transition: width 0.3s ease-out;
+  animation: shimmer 1.5s infinite;
+  box-shadow: 0 0 15px rgba($accent-green, 0.5);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.loader-text {
+  font-size: $font-sm;
+  color: $text-secondary;
+  margin-top: $spacing-sm;
+  animation: fadeInOut 2s ease-in-out infinite;
+}
+
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+

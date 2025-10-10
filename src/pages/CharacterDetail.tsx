@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { api } from '../services/api';
+import { navigateWithReturn } from '../services/navigation';
 import { Character } from '../types/character';
+import BackButton from '../components/BackButton';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
-import './CharacterDetail.css';
+import './CharacterDetail.scss';
 
 function CharacterDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const location = useLocation();
   const [character, setCharacter] = useState<Character | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -24,10 +26,9 @@ function CharacterDetail() {
         const data = await api.getCharacter(id);
         console.log(data);
         setCharacter(data);
-      } catch (error) {
-        setError(
-          error ? error.message  : 'An error occurred'
-        );
+      } catch (err) {
+        const error = err as Error;
+        setError(error?.message || 'An error occurred');
       } finally {
         setLoading(false);
       }
@@ -44,16 +45,25 @@ function CharacterDetail() {
     return `status-${status.toLowerCase()}`;
   };
 
-  const handleBack = () => {
-    const page = searchParams.get('page') || '1';
-    navigate(`/?page=${page}`);
+  const handleLocationClick = (url: string) => {
+    const locationId = api.getLocationIdFromUrl(url);
+    if (locationId) {
+      navigateWithReturn(
+        navigate,
+        `/location/${locationId}`,
+        location.pathname,
+        location.search
+      );
+    }
+  };
+
+  const isValidLocation = (url: string) => {
+    return url && url.trim() !== '';
   };
 
   return (
     <div className="character-detail">
-      <button className="back-button" onClick={handleBack}>
-        ← Back to Characters
-      </button>
+      <BackButton label="Back" defaultRoute="/" />
 
       <div className="character-detail-card">
         <div className="character-detail-image">
@@ -84,12 +94,32 @@ function CharacterDetail() {
 
             <div className="info-item">
               <span className="info-label">Origin:</span>
-              <span className="info-value">{character.origin.name}</span>
+              {isValidLocation(character.origin.url) ? (
+                <span 
+                  className="info-value info-value-clickable" 
+                  onClick={() => handleLocationClick(character.origin.url)}
+                  title="Click to view location details"
+                >
+                  {character.origin.name} →
+                </span>
+              ) : (
+                <span className="info-value">{character.origin.name}</span>
+              )}
             </div>
 
             <div className="info-item">
               <span className="info-label">Last known location:</span>
-              <span className="info-value">{character.location.name}</span>
+              {isValidLocation(character.location.url) ? (
+                <span 
+                  className="info-value info-value-clickable" 
+                  onClick={() => handleLocationClick(character.location.url)}
+                  title="Click to view location details"
+                >
+                  {character.location.name} →
+                </span>
+              ) : (
+                <span className="info-value">{character.location.name}</span>
+              )}
             </div>
 
             <div className="info-item">
