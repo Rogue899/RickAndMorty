@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { api } from '../services/api';
 import { Location, Character } from '../types';
+import { UI_TEXT } from '../constants/app-config';
 import BackButton from '../components/BackButton';
+import Breadcrumbs from '../components/Breadcrumbs';
 import CharacterCard from '../components/CharacterCard';
 import Pagination from '../components/Pagination';
 import Loading from '../components/Loading';
@@ -83,7 +85,13 @@ function LocationDetail() {
 
   return (
     <div className="location-detail">
-      <BackButton />
+      <Breadcrumbs 
+        items={[
+          { label: 'Locations', path: '/locations' },
+          { label: location.name }
+        ]} 
+      />
+      <BackButton label={UI_TEXT.BACK_TO_LOCATIONS} defaultRoute="/locations" />
 
       <div className="location-detail-card">
         <div className="location-header">

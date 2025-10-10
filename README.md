@@ -53,12 +53,10 @@ This single-page application provides a comprehensive interface for browsing cha
 ### Installation
 
 ```bash
-# optional: Clone the repository
-git clone <repository-url>
+# Clone the repository (or extract the zip file)
 cd rick-and-morty-explorer
 
 # Install dependencies
-### cd into RickAndMorty and
 npm install
 ```
 
@@ -71,13 +69,23 @@ npm run dev
 
 The application will be available at `http://localhost:5173`
 
+### Running Tests
+
+```bash
+# Run tests
+npm test
+```
+
+Tests are written using Vitest and React Testing Library.
+
 ### Building for Production
 
 ```bash
+# Build for production
+npm run build
+
 # Preview production build locally
 npm run preview
-# or
-npm run dev
 ```
 
 Build output will be in the `dist/` directory.
@@ -177,6 +185,7 @@ UI_TEXT            // Button labels and text
 - `npm run dev` - Start development server
 - `npm run build` - Create production build
 - `npm run preview` - Preview production build
+- `npm test` - Run unit tests
 
 **Key Development Patterns**:
 - Functional components with hooks
@@ -184,5 +193,15 @@ UI_TEXT            // Button labels and text
 - SCSS modules for styling
 - Service layer for business logic
 - URL-based state management (since the project is small enough for us not to use global data management systems)
+
+## Testing
+
+The project includes unit tests using Vitest and React Testing Library. Tests cover:
+- Component rendering and user interactions
+- API service methods
+- Pagination functionality
+- Error handling
+
+Run tests with: `npm test`
 
 **Built with React, TypeScript, and modern web development best practices.**

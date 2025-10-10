@@ -3,7 +3,9 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { api } from '../services/api';
 import { navigateWithReturn } from '../services/navigation';
 import { Character } from '../types/character';
+import { UI_TEXT } from '../constants/app-config';
 import BackButton from '../components/BackButton';
+import Breadcrumbs from '../components/Breadcrumbs';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
 import './CharacterDetail.scss';
@@ -63,7 +65,13 @@ function CharacterDetail() {
 
   return (
     <div className="character-detail">
-      <BackButton label="Back" defaultRoute="/" />
+      <Breadcrumbs 
+        items={[
+          { label: 'Characters', path: '/' },
+          { label: character.name }
+        ]} 
+      />
+      <BackButton label={UI_TEXT.BACK_TO_CHARACTERS} defaultRoute="/" />
 
       <div className="character-detail-card">
         <div className="character-detail-image">

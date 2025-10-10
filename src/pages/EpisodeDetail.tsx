@@ -4,6 +4,7 @@ import { api } from '../services/api';
 import { Episode, Character } from '../types';
 import { VIDEO_CONFIG, PAGINATION_CONFIG, UI_TEXT, ERROR_MESSAGES } from '../constants/app-config';
 import BackButton from '../components/BackButton';
+import Breadcrumbs from '../components/Breadcrumbs';
 import CharacterCard from '../components/CharacterCard';
 import Pagination from '../components/Pagination';
 import Loading from '../components/Loading';
@@ -102,6 +103,12 @@ function EpisodeDetail() {
 
   return (
     <div className="episode-detail">
+      <Breadcrumbs 
+        items={[
+          { label: 'Episodes', path: '/episodes' },
+          { label: `${episode.episode} - ${episode.name}` }
+        ]} 
+      />
       <BackButton label={UI_TEXT.BACK_TO_EPISODES} defaultRoute="/episodes" />
 
       <div className="episode-detail-card">

@@ -1,0 +1,72 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.breadcrumbs {
+  margin-bottom: $spacing-lg;
+}
+
+.breadcrumbs-list {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap;
+}
+
+.breadcrumbs-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  font-size: $font-sm;
+}
+
+.breadcrumbs-link {
+  color: $text-secondary;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $radius-sm;
+  
+  &:hover {
+    color: $accent-green;
+    background: rgba($accent-green, 0.1);
+  }
+
+  &.active {
+    color: $accent-cyan;
+    font-weight: $font-medium;
+  }
+}
+
+.breadcrumbs-separator {
+  color: $text-tertiary;
+  user-select: none;
+  font-weight: $font-light;
+}
+
+.breadcrumbs-current {
+  color: $text-primary;
+  font-weight: $font-semibold;
+  padding: $spacing-xs $spacing-sm;
+  background: rgba($accent-green, 0.1);
+  border-radius: $radius-sm;
+}
+
+@include mobile {
+  .breadcrumbs-list {
+    font-size: $font-xs;
+    gap: $spacing-xs;
+  }
+
+  .breadcrumbs-item {
+    gap: $spacing-xs;
+  }
+
+  .breadcrumbs-link,
+  .breadcrumbs-current {
+    padding: $spacing-xs;
+  }
+}
+
