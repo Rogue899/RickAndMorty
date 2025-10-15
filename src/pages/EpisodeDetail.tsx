@@ -9,9 +9,7 @@ import CharacterCard from '../components/CharacterCard';
 import Pagination from '../components/Pagination';
 import Loading from '../components/Loading';
 import Error from '../components/Error';
-import PlayIcon from '../components/icons/PlayIcon';
-import ExternalLinkIcon from '../components/icons/ExternalLinkIcon';
-import CalendarIcon from '../components/icons/CalendarIcon';
+import { FaPlay, FaExternalLinkAlt, FaCalendarAlt } from 'react-icons/fa';
 import './EpisodeDetail.scss';
 
 function EpisodeDetail() {
@@ -122,14 +120,14 @@ function EpisodeDetail() {
             onClick={handleWatchEpisode}
             title="Opens video player in new tab"
           >
-            <PlayIcon />
+            <FaPlay style={{ marginRight: '8px' }} />
             {UI_TEXT.WATCH_EPISODE}
-            <ExternalLinkIcon style={{ marginLeft: '8px', opacity: 0.7 }} />
+            <FaExternalLinkAlt style={{ marginLeft: '8px', opacity: 0.7, fontSize: '0.9em' }} />
           </button>
 
           <div className="episode-info">
             <span className="episode-air-date">
-              <CalendarIcon />
+              <FaCalendarAlt style={{ marginRight: '8px' }} />
               {episode.air_date}
             </span>
             {seasonInfo && (

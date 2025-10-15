@@ -1,0 +1,50 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.scroll-to-top {
+  position: fixed;
+  bottom: $spacing-2xl;
+  right: $spacing-2xl;
+  z-index: 1000;
+  width: 50px;
+  height: 50px;
+  border-radius: $radius-full;
+  background: rgba($accent-green, 0.9);
+  border: 2px solid $accent-green;
+  color: $text-primary;
+  cursor: pointer;
+  @include flex-center;
+  @include transition-all;
+  box-shadow: 0 4px 20px rgba($accent-green, 0.4);
+  backdrop-filter: blur(10px);
+  animation: fadeIn 0.3s ease-in-out;
+
+  &:hover {
+    background: rgba($accent-green, 1);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba($accent-green, 0.6);
+  }
+
+  &:active {
+    transform: translateY(-2px);
+  }
+
+  @include mobile {
+    bottom: $spacing-xl;
+    right: $spacing-xl;
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

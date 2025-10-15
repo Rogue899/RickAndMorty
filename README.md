@@ -4,7 +4,7 @@ A full-featured web application for exploring the Rick and Morty universe, built
 
 ## Live Demo
 
-[Add deployment URL here]
+🚀 **[View Live Application](https://rick-and-morty-explorer-mdtnoyxky-tarekr94-3660s-projects.vercel.app)**
 
 ## Project Overview
 
@@ -89,6 +89,45 @@ npm run preview
 ```
 
 Build output will be in the `dist/` directory.
+
+## Deployment
+
+When deploying this SPA, ensure your hosting platform is configured to redirect all routes to `index.html` to support client-side routing:
+
+### Netlify
+Create a `_redirects` file in the `public/` directory:
+```
+/*    /index.html   200
+```
+
+### Vercel
+Create a `vercel.json` file in the project root:
+```json
+{
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
+```
+
+### Apache
+Create a `.htaccess` file:
+```apache
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
+```
+
+### Nginx
+Add to your nginx configuration:
+```nginx
+location / {
+  try_files $uri $uri/ /index.html;
+}
+```
 
 ## Project Structure
 

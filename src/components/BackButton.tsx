@@ -1,6 +1,6 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { navigateBack } from '../services/navigation';
-import ArrowLeftIcon from './icons/ArrowLeftIcon';
+import { IoArrowBack } from 'react-icons/io5';
 import './BackButton.scss';
 
 interface BackButtonProps {
@@ -18,7 +18,7 @@ function BackButton({ label = 'Back', defaultRoute }: BackButtonProps) {
 
   return (
     <button className="back-button" onClick={handleClick}>
-      <ArrowLeftIcon className="back-button-icon" />
+      <IoArrowBack className="back-button-icon" size={20} />
       <span>{label}</span>
     </button>
   );

@@ -103,3 +103,19 @@
   padding: 0 $spacing-sm;
 }
 
+.pagination-mobile-info {
+  color: $text-primary;
+  font-size: $font-base;
+  font-weight: $font-medium;
+  padding: $spacing-sm $spacing-base;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: $radius-md;
+  backdrop-filter: blur(10px);
+  
+  @include mobile {
+    font-size: $font-sm;
+    padding: $spacing-xs $spacing-sm;
+  }
+}
+

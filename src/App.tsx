@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import ErrorBoundary from './components/ErrorBoundary';
 import AppLoader from './components/AppLoader';
+import ScrollToTop from './components/ScrollToTop';
 import CharacterList from './pages/CharacterList';
 import CharacterDetail from './pages/CharacterDetail';
 import LocationList from './pages/LocationList';
@@ -69,6 +70,7 @@ function AppContent() {
           </Routes>
         </ErrorBoundary>
       </main>
+      <ScrollToTop />
     </div>
   );
 }

@@ -66,6 +66,34 @@ function CharacterDetail() {
     return url && url.trim() !== '';
   };
 
+  const getCharacterInfoItems = () => [
+    {
+      label: 'Status',
+      value: character!.status,
+      className: getStatusClass(character!.status),
+      withIndicator: true
+    },
+    { label: 'Species', value: character!.species },
+    { label: 'Gender', value: character!.gender },
+    {
+      label: 'Origin',
+      value: character!.origin.name,
+      clickable: isValidLocation(character!.origin.url),
+      onClick: () => handleLocationClick(character!.origin.url)
+    },
+    {
+      label: 'Last known location',
+      value: character!.location.name,
+      clickable: isValidLocation(character!.location.url),
+      onClick: () => handleLocationClick(character!.location.url)
+    },
+    {
+      label: 'Episodes',
+      value: `${character!.episode.length} ${character!.episode.length === 1 ? 'episode' : 'episodes'}`,
+      className: 'episodes-count'
+    }
+  ];
+
   return (
     <div className="character-detail">
       <Breadcrumbs 
@@ -85,60 +113,25 @@ function CharacterDetail() {
           <h1>{character.name}</h1>
 
           <div className="info-grid">
-            <div className="info-item">
-              <span className="info-label">Status:</span>
-              <span className={`info-value ${getStatusClass(character.status)}`}>
-                <span className="status-indicator"></span>
-                {character.status}
-              </span>
-            </div>
-
-            <div className="info-item">
-              <span className="info-label">Species:</span>
-              <span className="info-value">{character.species}</span>
-            </div>
-
-            <div className="info-item">
-              <span className="info-label">Gender:</span>
-              <span className="info-value">{character.gender}</span>
-            </div>
-
-            <div className="info-item">
-              <span className="info-label">Origin:</span>
-              {isValidLocation(character.origin.url) ? (
-                <span 
-                  className="info-value info-value-clickable" 
-                  onClick={() => handleLocationClick(character.origin.url)}
-                  title="Click to view location details"
-                >
-                  {character.origin.name} →
-                </span>
-              ) : (
-                <span className="info-value">{character.origin.name}</span>
-              )}
-            </div>
-
-            <div className="info-item">
-              <span className="info-label">Last known location:</span>
-              {isValidLocation(character.location.url) ? (
-                <span 
-                  className="info-value info-value-clickable" 
-                  onClick={() => handleLocationClick(character.location.url)}
-                  title="Click to view location details"
-                >
-                  {character.location.name} →
-                </span>
-              ) : (
-                <span className="info-value">{character.location.name}</span>
-              )}
-            </div>
-
-            <div className="info-item">
-              <span className="info-label">Episodes:</span>
-              <span className="info-value episodes-count">
-                {character.episode.length} {character.episode.length === 1 ? 'episode' : 'episodes'}
-              </span>
-            </div>
+            {getCharacterInfoItems().map((item, index) => (
+              <div key={index} className="info-item">
+                <span className="info-label">{item.label}:</span>
+                {item.clickable ? (
+                  <span 
+                    className="info-value info-value-clickable" 
+                    onClick={item.onClick}
+                    title="Click to view location details"
+                  >
+                    {item.value} →
+                  </span>
+                ) : (
+                  <span className={`info-value ${item.className || ''}`}>
+                    {item.withIndicator && <span className="status-indicator"></span>}
+                    {item.value}
+                  </span>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </div>

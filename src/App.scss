@@ -9,7 +9,8 @@
 }
 
 .app-header {
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 100;
   background: rgba(0, 0, 0, 0.3);
   padding: $spacing-xl $spacing-2xl;
@@ -110,9 +111,11 @@
   margin: 0 auto;
   position: relative;
   z-index: 10;
+  min-height: calc(100vh - 200px); // Ensure minimum height to cover viewport
   
   @include mobile {
     padding: $spacing-base;
+    min-height: calc(100vh - 150px);
   }
 }
 
