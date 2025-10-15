@@ -146,7 +146,7 @@
 
 .location-stats {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: $spacing-md;
   padding-top: $spacing-md;
   border-top: 1px solid rgba($accent-cyan, 0.2);
@@ -197,8 +197,9 @@
   font-size: $font-sm;
   font-weight: $font-semibold;
   color: $text-primary;
-  white-space: nowrap;
+  max-width: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
