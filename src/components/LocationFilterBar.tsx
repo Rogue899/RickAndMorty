@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getLocationFilterOptions } from '../services/filterDataService';
 import './LocationFilterBar.scss';
 
 interface LocationFilterBarProps {
@@ -10,6 +11,26 @@ function LocationFilterBar({ onFilterChange, initialFilters = {} }: LocationFilt
   const [name, setName] = useState(initialFilters.name || '');
   const [type, setType] = useState(initialFilters.type || '');
   const [dimension, setDimension] = useState(initialFilters.dimension || '');
+  const [filterOptions, setFilterOptions] = useState<{ types: string[]; dimensions: string[] }>({ 
+    types: [], 
+    dimensions: [] 
+  });
+  const [loadingOptions, setLoadingOptions] = useState(true);
+
+  useEffect(() => {
+    const fetchFilterOptions = async () => {
+      try {
+        const options = await getLocationFilterOptions();
+        setFilterOptions(options);
+      } catch (error) {
+        console.error('Failed to load filter options:', error);
+      } finally {
+        setLoadingOptions(false);
+      }
+    };
+
+    fetchFilterOptions();
+  }, []);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,27 +62,39 @@ function LocationFilterBar({ onFilterChange, initialFilters = {} }: LocationFilt
         </div>
 
         <div className="filter-group">
-          <label htmlFor="type-input">Type</label>
-          <input
-            id="type-input"
-            type="text"
-            placeholder="e.g., Planet, Space station..."
+          <label htmlFor="type-select">Type</label>
+          <select
+            id="type-select"
             value={type}
             onChange={(e) => setType(e.target.value)}
-            className="filter-input"
-          />
+            className="filter-select"
+            disabled={loadingOptions}
+          >
+            <option value="">All Types</option>
+            {filterOptions.types.map((typeOption) => (
+              <option key={typeOption} value={typeOption}>
+                {typeOption}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="filter-group">
-          <label htmlFor="dimension-input">Dimension</label>
-          <input
-            id="dimension-input"
-            type="text"
-            placeholder="e.g., C-137, unknown..."
+          <label htmlFor="dimension-select">Dimension</label>
+          <select
+            id="dimension-select"
             value={dimension}
             onChange={(e) => setDimension(e.target.value)}
-            className="filter-input"
-          />
+            className="filter-select"
+            disabled={loadingOptions}
+          >
+            <option value="">All Dimensions</option>
+            {filterOptions.dimensions.map((dimOption) => (
+              <option key={dimOption} value={dimOption}>
+                {dimOption}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="filter-actions">

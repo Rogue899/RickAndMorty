@@ -26,6 +26,9 @@
   cursor: pointer;
   @include transition-all;
   backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
   
   &:hover:not(:disabled) {
     background: rgba($accent-green, 0.2);
