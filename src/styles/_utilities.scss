@@ -46,12 +46,12 @@
 .page-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
-  gap: $spacing-2xl;
+  gap: $spacing-xl;
   margin-bottom: $spacing-3xl;
   
   @include mobile {
     grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
-    gap: $spacing-xl;
+    gap: $spacing-lg;
     margin-bottom: $spacing-2xl;
   }
   

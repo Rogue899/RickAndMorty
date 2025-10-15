@@ -8,6 +8,7 @@
   overflow: hidden;
   min-height: 200px;
   transition: all $transition-base;
+  padding: $spacing-lg;
   
   // Animated gradient border effect
   &::before {
@@ -147,8 +148,8 @@
 .location-stats {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: $spacing-md;
-  padding-top: $spacing-md;
+  gap: $spacing-sm;
+  padding-top: $spacing-sm;
   border-top: 1px solid rgba($accent-cyan, 0.2);
   
   // Dynamic behavior for smaller cards
@@ -160,8 +161,8 @@
 .location-stat {
   display: flex;
   align-items: center;
-  gap: $spacing-md;
-  padding: $spacing-sm;
+  gap: $spacing-sm;
+  padding: $spacing-xs;
   border-radius: $radius-md;
   background: rgba($accent-cyan, 0.05);
   transition: background $transition-fast;

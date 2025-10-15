@@ -19,5 +19,10 @@
 
 .location-grid {
   @extend .page-grid;
+  
+  // Show 3 cards per row on larger screens
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
