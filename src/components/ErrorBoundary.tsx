@@ -28,7 +28,10 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Error caught by ErrorBoundary:', error, errorInfo);
+    // Log error for debugging in development
+    if (import.meta.env.DEV) {
+      console.error('Error caught by ErrorBoundary:', error, errorInfo);
+    }
   }
 
   handleReset = () => {

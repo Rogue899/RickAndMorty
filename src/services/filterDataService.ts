@@ -23,8 +23,8 @@ export const getLocationFilterOptions = async (): Promise<FilterOptions> => {
     const types = new Set<string>();
     const dimensions = new Set<string>();
     
-    // Fetch first few pages to get a good sample of types and dimensions
-    const promises = [1, 2, 3, 4, 5].map(page => 
+    // Fetch first 3 pages to get a good sample of types and dimensions
+    const promises = [1, 2, 3].map(page => 
       api.getLocations({ page }).catch(() => null)
     );
     

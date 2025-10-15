@@ -26,7 +26,6 @@ function CharacterDetail() {
         setLoading(true);
         setError(null);
         const data = await api.getCharacter(id);
-        console.log(data);
         setCharacter(data);
       } catch (err) {
         const error = err as Error;
